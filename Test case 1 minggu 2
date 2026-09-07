@@ -1,0 +1,13 @@
+import unittest
+
+class TestAktivitas1(unittest.TestCase):
+    def test_formulasi_komponen(self):
+        self.assertEqual(INITIAL_STATE, (0, 0))
+        self.assertEqual(GOAL_STATE, (2, 3))
+        self.assertEqual(len(ACTIONS), 4)
+        self.assertIn("KANAN", ACTIONS)
+        self.assertEqual(STEP_COST, 1)
+
+if __name__ == "__main__":
+    unittest.main(argv=['first-arg-is-ignored'], exit=False)
+
