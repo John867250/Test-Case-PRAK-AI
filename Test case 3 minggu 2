@@ -1,0 +1,38 @@
+import unittest
+
+class TestAktivitas3(unittest.TestCase):
+    def setUp(self):
+        self.grid = [
+            [0, 0, 0, 1],
+            [1, 0, 0, 0],
+            [0, 0, 1, 0]
+        ]
+        self.grid_3x3 = [
+            [0, 0, 0],
+            [0, 1, 0],
+            [0, 0, 0]
+        ]
+
+    def test_apply_action(self):
+        self.assertEqual(apply_action((1, 1), "ATAS"), (0, 1))
+        self.assertEqual(apply_action((1, 1), "BAWAH"), (2, 1))
+        self.assertEqual(apply_action((1, 1), "KIRI"), (1, 0))
+        self.assertEqual(apply_action((1, 1), "KANAN"), (1, 2))
+        with self.assertRaises(ValueError):
+            apply_action((1, 1), "SERONG")
+
+    def test_get_successors(self):
+        self.assertEqual(get_successors((0, 0), self.grid), [('KANAN', (0, 1))])
+        self.assertEqual(
+            get_successors((1, 1), self.grid), 
+            [('ATAS', (0, 1)), ('BAWAH', (2, 1)), ('KANAN', (1, 2))]
+        )
+
+    def test_deduplication(self):
+        raw_states = [(0, 1), (1, 0), (0, 0), (0, 2), (0, 1), (0, 0), (2, 0)]
+        unique_states = list(dict.fromkeys(raw_states))
+        self.assertEqual(len(unique_states), 5)
+        self.assertEqual(unique_states, [(0, 1), (1, 0), (0, 0), (0, 2), (2, 0)])
+
+if __name__ == "__main__":
+    unittest.main(argv=['first-arg-is-ignored'], exit=False)
